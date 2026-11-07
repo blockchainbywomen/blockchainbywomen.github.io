@@ -151,6 +151,9 @@ def clean(name, path):
               '<a class="sqs-block-button-element--medium sqs-button-element--primary sqs-block-button-element" href="mailto:%s?subject=Blockchain%%20by%%20Women">Email Us</a>'
               '<p><a href="mailto:%s">%s</a></p></div></div></div>') % (CONTACT_EMAIL, CONTACT_EMAIL, CONTACT_EMAIL)
     s = remove_blocks(s, r'<div[^>]*class="[^"]*\bsqs-block-form\b[^"]*"', lambda blk: mailto)
+    # Buttons that point at a Google Form nobody can find any more (Sponsor Now on /about-1)
+    s = remove_blocks(s, r'<div[^>]*class="[^"]*\bsqs-block-button\b[^"]*"',
+                      lambda blk: '' if '1FAIpQLScSADG96BGuxSXMNGjCBb4iyWdRz7H4YbczD2uwdVTmRJY6Pg' in blk else blk)
     # 5. video wrappers -> direct iframes
     def video_rep(blk):
         m = re.search(r'data-html="([^"]*)"', blk)
