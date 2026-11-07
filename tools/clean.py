@@ -29,6 +29,23 @@ def remove_blocks(s, open_pat, replacer=lambda blk: ''):
         out.append(s[pos:m.start()]); out.append(replacer(s[m.start():end])); pos = end
     out.append(s[pos:]); return ''.join(out)
 
+def extract_code_containers(s, replacer):
+    """Squarespace code blocks hold user-authored HTML (often a whole <html> document with
+    unbalanced tags), so find their end by the closing </html> plus the container's own </div>."""
+    out, pos = [], 0
+    open_pat = re.compile(r'<div\s+class="sqs-code-container"', re.S)
+    while True:
+        m = open_pat.search(s, pos)
+        if not m: break
+        h = s.find('</html>', m.start())
+        if h != -1:
+            m2 = re.compile(r'</html>\s*</div>', re.S).match(s, h)
+            end = m2.end() if m2 else balanced_end(s, m.start())
+        else:
+            end = balanced_end(s, m.start())
+        out.append(s[pos:m.start()]); out.append(replacer(s[m.start():end])); pos = end
+    out.append(s[pos:]); return ''.join(out)
+
 def local_asset(url, prefix):
     b = url.split('?')[0]
     if b.startswith('http:'): b = 'https:' + b[5:]
@@ -96,12 +113,20 @@ def build_video_grid(gallery, prefix):
 def clean(name, path):
     s = open(os.path.join(RAW, name + '.html')).read()
     prefix = '' if path == '' else '../'
-    # 1. protect code blocks (the assessment tools) from script stripping
+    # 1. protect code blocks (the assessment tools) from script stripping.
+    #    Inline scripts are swapped for placeholders first so that '<div' strings inside
+    #    JavaScript cannot confuse the balanced-div scan that finds the end of a code block.
+    inline_scripts = []
+    def stash(m):
+        inline_scripts.append(m.group(0)); return '@@SCRIPT%d@@' % (len(inline_scripts) - 1)
+    s = re.sub(r'<script\b(?![^>]*\ssrc=)[^>]*>.*?</script>', stash, s, flags=re.S)
     code_blocks = []
     def keep(blk):
+        blk = re.sub(r'@@SCRIPT(\d+)@@', lambda m: inline_scripts[int(m.group(1))], blk)  # restore scripts inside code blocks
         code_blocks.append(blk); return '@@CODEBLOCK%d@@' % (len(code_blocks) - 1)
-    s = remove_blocks(s, r'<div class="sqs-code-container"', keep)
-    # 2. strip all scripts
+    s = extract_code_containers(s, keep)
+    # 2. strip all remaining scripts (Squarespace runtime, analytics, external bundles)
+    s = re.sub(r'@@SCRIPT\d+@@', '', s)
     s = re.sub(r'<script\b[^>]*>.*?</script>', '', s, flags=re.S)
     s = re.sub(r'<noscript>.*?</noscript>', '', s, flags=re.S)
     # 3. head: drop squarespace/typekit links and stray meta
@@ -155,7 +180,8 @@ def clean(name, path):
     s = s.replace('xlink:href="/universal/svg/social-accounts.svg#', 'xlink:href="#')  # symbols are defined inline at the end of body
     # 8. restore code blocks, add site.js
     for i, blk in enumerate(code_blocks): s = s.replace('@@CODEBLOCK%d@@' % i, blk)
-    s = s.replace('</body>', '<script src="%sassets/site.js" defer></script>\n</body>' % prefix, 1)
+    k = s.rfind('</body>')  # the last one: embedded code blocks carry their own </body>
+    s = s[:k] + '<script src="%sassets/site.js" defer></script>\n' % prefix + s[k:]
     out_dir = os.path.join(SITE, path); os.makedirs(out_dir, exist_ok=True)
     open(os.path.join(out_dir, 'index.html'), 'w').write(s)
     left = sorted(set(re.findall(r'[^\s"\'>]*(?:squarespace|sqspcdn|typekit)[^\s"\'<]*', s)))
