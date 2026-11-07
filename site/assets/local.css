@@ -46,3 +46,12 @@ figure.loading { opacity: 1 !important; }
 
 /* Image blocks with a Squarespace "fade in" animation stayed invisible without Squarespace's JS */
 .sqs-block[data-definition-name="website.components.imageLayout"] .image-block-outer-wrapper[class*="combination-animation-"] :is(.image-block-wrapper, .image-caption-wrapper, .image-inset, .sqs-dynamic-text-container) { opacity: 1 !important; transform: none !important; }
+
+/* Image blocks with "dynamic" title text (collage / poster / overlap layouts): Squarespace's script
+   scaled the text to the card width; use container-relative units to do the same without it. */
+.sqs-block-image .image-block-v2 .image-card-wrapper { container-type: inline-size; }
+.sqs-block-image .image-block-v2 .image-title-wrapper { font-size: 5.5cqw !important; }
+.sqs-block-image .image-block-v2 .image-subtitle-wrapper { font-size: 3.2cqw !important; }
+.sqs-block-image .image-block-v2 .sqs-cdk-dynamic-text { font-size: 100% !important; }
+.sqs-block-image .image-block-v2 .image-button-wrapper { font-size: 3.2cqw !important; }
+.sqs-block-image .image-block-v2 .image-button-wrapper a { font-size: inherit !important; }
