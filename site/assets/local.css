@@ -43,3 +43,6 @@ figure.loading { opacity: 1 !important; }
 .video-grid .video-item .sqs-video-icon:after { content: ''; position: absolute; left: 25px; top: 19px; border-style: solid; border-width: 13px 0 13px 20px; border-color: transparent transparent transparent #fff; }
 .video-grid .video-item:hover .sqs-video-icon { background: rgba(0,0,0,.8); }
 .video-grid .video-title { font-size: 13px; line-height: 1.4; margin: 10px 0 0; color: #333; }
+
+/* Image blocks with a Squarespace "fade in" animation stayed invisible without Squarespace's JS */
+.sqs-block[data-definition-name="website.components.imageLayout"] .image-block-outer-wrapper[class*="combination-animation-"] :is(.image-block-wrapper, .image-caption-wrapper, .image-inset, .sqs-dynamic-text-container) { opacity: 1 !important; transform: none !important; }

@@ -181,6 +181,7 @@ def clean(name, path):
     s = re.sub(r'\b(href)="(/[^"]*)"', link_rep, s)
     s = s.replace('href="@blockchainbywo2"', 'href="https://twitter.com/blockchainbywo2"')  # broken on the live site too
     s = s.replace('xlink:href="/universal/svg/social-accounts.svg#', 'xlink:href="#')  # symbols are defined inline at the end of body
+    s = s.replace('assets/img/598904f8-Karen_Hsu.jpg', 'assets/img/karen-hsu-headshot.jpg')  # newer headshot supplied 2026-11-06
     # 8. restore code blocks, add site.js
     for i, blk in enumerate(code_blocks): s = s.replace('@@CODEBLOCK%d@@' % i, blk)
     k = s.rfind('</body>')  # the last one: embedded code blocks carry their own </body>
