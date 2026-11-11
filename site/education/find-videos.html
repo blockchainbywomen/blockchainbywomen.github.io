@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" lang="en-US"  lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Video Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .assessment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            color: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .step-indicator {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .option-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option-card.selected {
+            border-color: #60a5fa;
+            background: rgba(96, 165, 250, 0.2);
+        }
+        
+        .option-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .option-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .option-description {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 12px;
+        }
+        
+        .option-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+        }
+        
+        .role-tag {
+            background: rgba(59, 130, 246, 0.3);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+        }
+        
+        .video-count {
+            margin-top: 8px;
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+        
+        .role-selection {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .role-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .role-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .results-section {
+            margin-top: 30px;
+        }
+        
+        .video-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .video-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fbbf24;
+        }
+        
+        .video-description {
+            margin-bottom: 15px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .video-speakers {
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .video-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .topic-tag {
+            background: rgba(34, 197, 94, 0.3);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+        
+        .watch-button {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .watch-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+        
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .results-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .results-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .results-count {
+            background: rgba(34, 197, 94, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="assessment-container">
+        <!-- Use Case Selection -->
+        <div id="usecase-selection">
+            <div class="header">
+                <h1>Find Your Perfect Blockchain Videos</h1>
+                <p>Choose your primary use case to get personalized recommendations</p>
+                <div class="step-indicator">Step 1 of 2: Select Your Use Case</div>
+            </div>
+            
+            <div class="option-grid">
+                <div class="option-card" onclick="selectUseCase('trading')">
+                    <div class="option-icon">📈</div>
+                    <div class="option-title">Trading and Investments</div>
+                    <div class="option-description">Data-driven investment strategies, stablecoins, and crypto projects</div>
+                    <div class="option-roles">
+                        <span class="role-tag">Fintech</span>
+                        <span class="role-tag">Investor</span>
+                    </div>
+                    <div class="video-count">3 videos available</div>
+                </div>
+                
+                <div class="option-card" onclick="selectUseCase('ai')">
+                    <div class="option-icon">🤖</div>
+                    <div class="option-title">AI in Finance</div>
+                    <div class="option-description">Artificial intelligence applications in financial services</div>
+                    <div class="option-roles">
+                        <span class="role-tag">Fintech</span>
+                        <span class="role-tag">Investor</span>
+                    </div>
+                    <div class="video-count">1 video available</div>
+                </div>
+                
+                <div class="option-card" onclick="selectUseCase('security')">
+                    <div class="option-icon">🔐</div>
+                    <div class="option-title">Security, Privacy & Risk</div>
+                    <div class="option-description">Comprehensive security solutions and risk mitigation strategies</div>
+                    <div class="option-roles">
+                        <span class="role-tag">Developer</span>
+                        <span class="role-tag">Compliance</span>
+                        <span class="role-tag">Business</span>
+                    </div>
+                    <div class="video-count">4 videos available</div>
+                </div>
+                
+                <div class="option-card" onclick="selectUseCase('nfts')">
+                    <div class="option-icon">🎨</div>
+                    <div class="option-title">NFTs & Digital Assets</div>
+                    <div class="option-description">Future opportunities and risk management in NFT markets</div>
+                    <div class="option-roles">
+                        <span class="role-tag">Investor</span>
+                        <span class="role-tag">Fintech</span>
+                        <span class="role-tag">Business</span>
+                    </div>
+                    <div class="video-count">1 video available</div>
+                </div>
+                
+                <div class="option-card" onclick="selectUseCase('cbdc')">
+                    <div class="option-icon">💰</div>
+                    <div class="option-title">Digital Currencies & CBDCs</div>
+                    <div class="option-description">Central bank digital currencies and their coexistence with stablecoins</div>
+                    <div class="option-roles">
+                        <span class="role-tag">Business</span>
+                        <span class="role-tag">Investor</span>
+                        <span class="role-tag">Fintech</span>
+                    </div>
+                    <div class="video-count">2 videos available</div>
+                </div>
+                
+                <div class="option-card" onclick="selectUseCase('applications')">
+                    <div class="option-icon">🔗</div>
+                    <div class="option-title">Blockchain Applications</div>
+                    <div class="option-description">Real-world implementations across industries and loyalty programs</div>
+                    <div class="option-roles">
+                        <span class="role-tag">Fintech</span>
+                        <span class="role-tag">Business</span>
+                    </div>
+                    <div class="video-count">3 videos available</div>
+                </div>
+                
+                <div class="option-card" onclick="selectUseCase('web3')">
+                    <div class="option-icon">🌐</div>
+                    <div class="option-title">Web3 Projects</div>
+                    <div class="option-description">Latest Web3 developments and blockchain project investments</div>
+                    <div class="option-roles">
+                        <span class="role-tag">Investor</span>
+                        <span class="role-tag">Fintech</span>
+                        <span class="role-tag">Business</span>
+                    </div>
+                    <div class="video-count">2 videos available</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Role Selection -->
+        <div id="role-selection" class="hidden">
+            <div class="role-selection">
+                <div class="header">
+                    <h1 id="selected-usecase-title">Selected Use Case</h1>
+                    <p>What best describes your role or interest?</p>
+                    <div class="step-indicator">Step 2 of 2: Select Your Role</div>
+                </div>
+                
+                <div class="role-grid" id="role-options">
+                    <!-- Role options will be populated dynamically -->
+                </div>
+                
+                <button class="back-button" onclick="goBack()">← Back to Use Cases</button>
+            </div>
+        </div>
+        
+        <!-- Results -->
+        <div id="results" class="hidden">
+            <div class="results-section">
+                <div class="results-header">
+                    <h1 class="results-title">Your Video Recommendations</h1>
+                    <p class="results-subtitle" id="results-subtitle">Use Case • Role</p>
+                    <div class="results-count" id="results-count">X videos curated for you</div>
+                </div>
+                
+                <div id="video-list">
+                    <!-- Video recommendations will be populated here -->
+                </div>
+                
+                <div style="text-align: center;">
+                    <button class="back-button" onclick="resetAssessment()">Explore Other Use Cases</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const videoDatabase = {
+            'investing_ai_agents': {
+                title: "Investing Safely with AI Agents, Human Advisors, and Online Platforms",
+                description: "A March 2026 panel on how to invest safely when advice comes from AI agents, online platforms and human advisors: what each is good for, where the risks are, and how to check before money moves.",
+                url: "https://youtu.be/cdhwCGAiMTc",
+                speakers: "Blockchain by Women panel, March 26, 2026",
+                topics: ["AI", "Investing", "Safety"]
+            },
+            'ai_fintech': {
+                title: "AI in Finance: Ramp, Crypto Connection, Appdome",
+                description: "Explore how artificial intelligence is transforming finance with insights from leading fintech companies including Ramp, crypto connections, and Appdome's security solutions.",
+                url: "https://youtu.be/x4zN1LkyELo",
+                speakers: "Ramp, Crypto Connection, Appdome",
+                topics: ["AI", "Finance", "Fintech", "Security"]
+            },
+            'investments': {
+                title: "Data Driven Investments: Fidelity, Guapcoin, Signum Growth",
+                description: "Learn about data-driven investment strategies in crypto with expert insights from Fidelity Investments, Guapcoin, Signum Growth Capital, Prycto, BlockchainIntel, and Appdome.",
+                url: "https://youtu.be/5ccGsciST9E",
+                speakers: "Fidelity Investments, Guapcoin, Signum Growth Capital, Prycto, BlockchainIntel, Appdome",
+                topics: ["Investment", "Data Analytics", "Crypto Trading"]
+            },
+            'cbdc_stablecoins': {
+                title: "Federal Reserve Bank & MIT: Central Bank Digital Currencies",
+                description: "Understand the technology behind central bank digital currencies (CBDCs) with insights from the Federal Reserve Bank of Boston and MIT research.",
+                url: "https://youtu.be/dzan4-jV-FE",
+                speakers: "Federal Reserve Bank of Boston, MIT",
+                topics: ["CBDC", "Central Banking", "Digital Currency Technology"]
+            },
+            'stablecoins': {
+                title: "Stablecoins: Binance, OKCoin, Celo, Coinbase",
+                description: "Deep dive into stablecoin technology, regulation, and market dynamics with leading exchanges and platforms.",
+                url: "https://youtu.be/go_-De5p3Ts",
+                speakers: "Binance, OKCoin, Celo, Coinbase, BlockchainIntel",
+                topics: ["Stablecoins", "Digital Assets", "Regulation"]
+            },
+            'cbdc_coexist': {
+                title: "Can CBDCs and Stablecoins Coexist? Standard Chartered & Consensys",
+                description: "Expert analysis on whether central bank digital currencies and stablecoins can coexist in the future financial ecosystem.",
+                url: "https://youtu.be/J7Dl6bAVgJk",
+                speakers: "Standard Chartered, Consensys",
+                topics: ["CBDC", "Stablecoins", "Banking", "Future Finance"]
+            },
+            'security_privacy': {
+                title: "Ensuring Security and Privacy on Blockchain Applications",
+                description: "Comprehensive guide to blockchain security and privacy with insights from Kadena, Stellar, and Cardstack.",
+                url: "https://youtu.be/Yx1QI5mBLMQ",
+                speakers: "Kadena, Stellar, Cardstack",
+                topics: ["Blockchain Security", "Privacy", "Development"]
+            },
+            'wallet_security': {
+                title: "Protecting Crypto Wallets",
+                description: "Learn best practices for crypto wallet security from industry leaders including Consensys, Mastercard, INX, and FalconX.",
+                url: "https://youtu.be/_22q2qYGsP4",
+                speakers: "Consensys, Mastercard, INX, FalconX",
+                topics: ["Wallet Security", "Crypto Protection", "Risk Management"]
+            },
+            'nft_applications': {
+                title: "Future of NFTs: Opportunities and Managing Risks",
+                description: "Explore NFT opportunities and risk management strategies with expert insights from Deloitte, and Blockchain Foundation.",
+                url: "https://youtu.be/i9sIW0DLb9c",
+                speakers: "Deloitte, Blockchain Foundation, ETHTrust",
+                topics: ["NFTs", "Risk Management", "Digital Assets"]
+            },
+            'real_world_apps': {
+                title: "From Pilot to Production: Real Estate, Health, and Media",
+                description: "Real-world blockchain applications across industries including real estate, healthcare, and media sectors.",
+                url: "https://youtu.be/cwyD0zjNyWc",
+                speakers: "Various Industry Experts",
+                topics: ["Blockchain Applications", "Real Estate", "Healthcare", "Media"]
+            },
+            'risk_regulation': {
+                title: "Mitigating Liquidity and Regulatory Risk",
+                description: "Learn about managing liquidity and regulatory risks in crypto markets with insights from Gemini exchange, Coinfloor, Dash and BlockchainIntel.",
+                url: "https://youtu.be/75IhGp0PPQA",
+                speakers: "Gemini, Coinfloor, Dash, BlockchainIntel",
+                topics: ["Risk Management", "Regulation", "Liquidity"]
+            },
+            'digital_assets_risk': {
+                title: "Reducing Risk in Digital Asset Exchange",
+                description: "Expert strategies for reducing risks in digital asset and currency exchanges with legal and technical perspectives.",
+                url: "https://youtu.be/oFBLrZGBQ2I",
+                speakers: "Katten, BitStamp, Reciprocity, Dash, BlockchainIntel",
+                topics: ["Digital Assets", "Exchange Risk", "Legal Compliance"]
+            },
+            'regulation_overview': {
+                title: "Regulation and Digital Assets: Protocol Battle Analysis",
+                description: "Comprehensive overview of current regulation landscape affecting digital assets and cryptocurrencies.",
+                url: "https://youtu.be/n1CCQ33zvvU",
+                speakers: "Protocol Battle",
+                topics: ["Regulation", "Digital Assets", "Compliance"]
+            },
+            'web3_projects': {
+                title: "Web3, Crypto and Blockchain Projects and Investments",
+                description: "Overview of the latest Web3, crypto, and blockchain projects with investment insights from Blockchain Foundation, MMH Data Systems, and crypto investment companies.",
+                url: "https://youtu.be/qNAY0aJMwws",
+                speakers: "Blockchain Foundation, MMH Data Systems, Crypto Investment Company",
+                topics: ["Web3", "Blockchain Projects", "Investment"]
+            },
+            'loyalty_programs': {
+                title: "Incentives and Loyalty Programs: Dash, Fold, Binance",
+                description: "Explore blockchain-based loyalty programs and incentive structures with insights from Dash, Fold, and Binance.",
+                url: "https://youtu.be/mFJ9Bm51CrY",
+                speakers: "Dash, Fold, Binance",
+                topics: ["Loyalty Programs", "Incentives", "User Engagement"]
+            },
+            'financial_services': {
+                title: "Pilot to Production in Financial Services",
+                description: "Learn how blockchain technology moves from pilot projects to full production in financial services.",
+                url: "https://youtu.be/ojxdiXKKArs",
+                speakers: "Financial Services Experts",
+                topics: ["Financial Services", "Implementation", "Production"]
+            }
+        };
+
+        const useCaseConfig = {
+            'trading': {
+                title: "Trading and Investments",
+                roles: ["Fintech Professional", "Investor/Trader"],
+                videos: ['investing_ai_agents', 'investments', 'stablecoins', 'web3_projects']
+            },
+            'ai': {
+                title: "AI in Finance",
+                roles: ["Fintech Professional", "Investor/Trader"],
+                videos: ['investing_ai_agents', 'ai_fintech']
+            },
+            'security': {
+                title: "Security, Privacy & Risk Management",
+                roles: ["Developer/Technical", "Compliance/Legal", "Business/Strategy"],
+                videos: ['security_privacy', 'wallet_security', 'risk_regulation', 'digital_assets_risk']
+            },
+            'nfts': {
+                title: "NFTs & Digital Assets",
+                roles: ["Investor/Trader", "Fintech Professional", "Business/Strategy"],
+                videos: ['nft_applications']
+            },
+            'cbdc': {
+                title: "Digital Currencies & CBDCs",
+                roles: ["Business/Strategy", "Investor/Trader", "Fintech Professional"],
+                videos: ['cbdc_stablecoins', 'cbdc_coexist']
+            },
+            'applications': {
+                title: "Blockchain Applications",
+                roles: ["Fintech Professional", "Business/Strategy"],
+                videos: ['real_world_apps', 'loyalty_programs', 'financial_services']
+            },
+            'web3': {
+                title: "Web3 Projects",
+                roles: ["Investor/Trader", "Fintech Professional", "Business/Strategy"],
+                videos: ['regulation_overview', 'web3_projects']
+            }
+        };
+
+        let selectedUseCase = null;
+        let selectedRole = null;
+
+        function selectUseCase(useCase) {
+            selectedUseCase = useCase;
+            showRoleSelection();
+        }
+
+        function showRoleSelection() {
+            const config = useCaseConfig[selectedUseCase];
+            
+            document.getElementById('usecase-selection').classList.add('hidden');
+            document.getElementById('role-selection').classList.remove('hidden');
+            
+            document.getElementById('selected-usecase-title').textContent = config.title;
+            
+            const roleOptions = document.getElementById('role-options');
+            roleOptions.innerHTML = config.roles.map(role => `
+                <div class="role-card" onclick="selectRole('${role}')">
+                    <div class="option-title">${role}</div>
+                </div>
+            `).join('');
+        }
+
+        function selectRole(role) {
+            selectedRole = role;
+            showResults();
+        }
+
+        function showResults() {
+            const config = useCaseConfig[selectedUseCase];
+            
+            document.getElementById('role-selection').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            
+            document.getElementById('results-subtitle').textContent = `${config.title} • ${selectedRole}`;
+            document.getElementById('results-count').textContent = `${config.videos.length} video${config.videos.length > 1 ? 's' : ''} curated for you`;
+            
+            const videoList = document.getElementById('video-list');
+            videoList.innerHTML = config.videos.map((videoKey, index) => {
+                const video = videoDatabase[videoKey];
+                return `
+                    <div class="video-card">
+                        <div class="video-title">${index + 1}. ${video.title}</div>
+                        <div class="video-description">${video.description}</div>
+                        <div class="video-speakers"><strong>Featured Speakers:</strong> ${video.speakers}</div>
+                        <div class="video-topics">
+                            ${video.topics.map(topic => `<span class="topic-tag">${topic}</span>`).join('')}
+                        </div>
+                        <a href="${video.url}" target="_blank" class="watch-button">Watch Video →</a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function goBack() {
+            document.getElementById('role-selection').classList.add('hidden');
+            document.getElementById('usecase-selection').classList.remove('hidden');
+        }
+
+        function resetAssessment() {
+            selectedUseCase = null;
+            selectedRole = null;
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('usecase-selection').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

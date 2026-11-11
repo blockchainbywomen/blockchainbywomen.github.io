@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" lang="en-US"  lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Assessment Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(45deg, #2e8b57, #3cb371);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #3cb371;
+            transition: transform 0.3s ease;
+        }
+
+        .question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .question h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option label {
+            display: block;
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .option label:hover {
+            border-color: #3cb371;
+            background: #f0f8f0;
+            transform: translateY(-2px);
+        }
+
+        .option input[type="radio"]:checked + label {
+            background: linear-gradient(45deg, #2e8b57, #3cb371);
+            color: white;
+            border-color: #3cb371;
+            box-shadow: 0 5px 15px rgba(60, 179, 113, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #2e8b57, #3cb371);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(60, 179, 113, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #3cb371;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .video-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .video-link {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .video-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .restart-btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #2e8b57, #3cb371);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Assess Your Scam Risk and Learn What You Can Do</h1>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <form id="assessmentForm">
+            <div class="question">
+                <h3>What type of contact or interaction are you most concerned about?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="interaction" value="romance_investment" id="romance_investment">
+                        <label for="romance_investment">Dating apps or calls from people I don't know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="interaction" value="job_offers" id="job_offers">
+                        <label for="job_offers">Job offers or employment opportunities</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="interaction" value="payments" id="payments">
+                        <label for="payments">Payment apps like Zelle or Venmo</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="interaction" value="tech_support" id="tech_support">
+                        <label for="tech_support">Tech support or computer help calls</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="interaction" value="qr_codes" id="qr_codes">
+                        <label for="qr_codes">QR codes in restaurants or public places</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="interaction" value="rentals" id="rentals">
+                        <label for="rentals">Rental properties or housing</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="interaction" value="voice_calls" id="voice_calls">
+                        <label for="voice_calls">Phone calls from family or friends</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Which situation would you find most concerning?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="concern" value="long_term" id="long_term">
+                        <label for="long_term">Being tricked over weeks or months</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="concern" value="urgent_pressure" id="urgent_pressure">
+                        <label for="urgent_pressure">Being pressured to act immediately</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="concern" value="fake_identity" id="fake_identity">
+                        <label for="fake_identity">Someone pretending to be someone else</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="concern" value="financial_loss" id="financial_loss">
+                        <label for="financial_loss">Losing money or personal information</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>Get My Scam Prevention Resources</button>
+        </form>
+
+        <div class="results" id="results">
+            <h2>Your Personalized Scam Prevention Resources</h2>
+            <div id="videoList"></div>
+            <button class="restart-btn" onclick="restartAssessment()">Take Assessment Again</button>
+        </div>
+    </div>
+
+    <script>
+        const videoDatabase = {
+            'romance_investment': [
+                { title: "Pig Butchering Scam: How Romance Leads to Financial Ruin", description: "Learn about the devastating pig butchering scam that combines romance fraud with investment theft", url: "https://youtu.be/CCasje15UwU" }
+            ],
+            'job_offers': [
+                { title: "Fake Job Offer Scam: How to Spot Employment Fraud", description: "Protect yourself from fake job offers and employment scams that steal your personal information", url: "https://youtu.be/P1i3rd8p5VI" }
+            ],
+            'payments': [
+                { title: "Zelle and Payment App Scams: Protect Your Money", description: "Learn how scammers exploit payment apps like Zelle and how to keep your money safe", url: "https://youtu.be/j0oszwI_Gjk" }
+            ],
+            'tech_support': [
+                { title: "Tech Support Scam: Don't Fall for Fake Computer Help", description: "Recognize and avoid fake tech support calls that try to access your computer and steal your information", url: "https://youtu.be/4jZNwKyjPtw" }
+            ],
+            'qr_codes': [
+                { title: "QR Code Phishing: The Hidden Danger in Plain Sight", description: "Learn how malicious QR codes can compromise your security and how to scan safely", url: "https://youtu.be/yXbNx9hZ-RU" }
+            ],
+            'rentals': [
+                { title: "Fake Rental Scam: How to Spot Housing Fraud", description: "Avoid fake rental listings and protect yourself from housing scams that steal your deposit", url: "https://youtu.be/56p6OcvfKtI" }
+            ],
+            'voice_calls': [
+                { title: "Deepfake Voice Scam: When Scammers Clone Your Loved Ones", description: "Learn about the terrifying new scam using AI to clone voices and how to protect yourself", url: "https://youtu.be/LnR40qP07Hw" }
+            ]
+        };
+
+        let currentAnswers = {};
+        const totalQuestions = 2;
+
+        function updateProgress() {
+            const answered = Object.keys(currentAnswers).length;
+            const progress = (answered / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function checkFormCompletion() {
+            const submitBtn = document.getElementById('submitBtn');
+            if (Object.keys(currentAnswers).length === totalQuestions) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Get My Scam Prevention Resources';
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.textContent = `Answer ${totalQuestions - Object.keys(currentAnswers).length} more questions`;
+            }
+        }
+
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'radio') {
+                currentAnswers[e.target.name] = e.target.value;
+                updateProgress();
+                checkFormCompletion();
+            }
+        });
+
+        document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const interaction = currentAnswers.interaction;
+            const concern = currentAnswers.concern;
+            
+            // Primary recommendation based on interaction type
+            let recommendations = [];
+            
+            if (videoDatabase[interaction]) {
+                recommendations = [...videoDatabase[interaction]];
+            }
+            
+            // Add secondary recommendations based on concern level
+            if (concern === 'long_term' && interaction !== 'romance_investment') {
+                recommendations.push(videoDatabase['romance_investment'][0]);
+            } else if (concern === 'urgent_pressure' && interaction !== 'tech_support') {
+                recommendations.push(videoDatabase['tech_support'][0]);
+            } else if (concern === 'fake_identity' && interaction !== 'voice_calls') {
+                recommendations.push(videoDatabase['voice_calls'][0]);
+            } else if (concern === 'financial_loss' && interaction !== 'payments') {
+                recommendations.push(videoDatabase['payments'][0]);
+            }
+            
+            // If no specific match, provide general recommendations
+            if (recommendations.length === 0) {
+                recommendations = [
+                    videoDatabase['romance_investment'][0],
+                    videoDatabase['tech_support'][0]
+                ];
+            }
+            
+            // Remove duplicates
+            const uniqueRecommendations = recommendations.filter((video, index, self) => 
+                index === self.findIndex(v => v.url === video.url)
+            );
+            
+            displayResults(uniqueRecommendations);
+        });
+
+        function displayResults(videos) {
+            const form = document.getElementById('assessmentForm');
+            const results = document.getElementById('results');
+            const videoList = document.getElementById('videoList');
+            
+            form.style.display = 'none';
+            results.style.display = 'block';
+            
+            videoList.innerHTML = videos.map(video => `
+                <div class="video-card">
+                    <h3>${video.title}</h3>
+                    <p>${video.description}</p>
+                    <a href="${video.url}" target="_blank" class="video-link">Watch on YouTube</a>
+                </div>
+            `).join('');
+        }
+
+        function restartAssessment() {
+            currentAnswers = {};
+            document.getElementById('assessmentForm').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('assessmentForm').reset();
+            document.getElementById('progressFill').style.width = '0%';
+            checkFormCompletion();
+        }
+
+        // Initialize
+        checkFormCompletion();
+    </script>
+</body>
+</html>

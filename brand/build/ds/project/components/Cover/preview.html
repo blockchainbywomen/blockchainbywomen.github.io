@@ -1,0 +1,51 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--paper); }
+  .cover { position: relative; width: 960px; height: 288px; overflow: hidden; background: var(--paper); font-family: var(--font-sans); }
+  .cover svg { position: absolute; inset: 0; display: block; }
+  .ink { fill: var(--ink); }
+  .signal { fill: var(--signal); }
+  .blush { fill: var(--blush); }
+  .line { fill: var(--line); }
+  .words { position: absolute; left: var(--space-4); bottom: var(--space-3); width: 420px; }
+  .name { margin: 0; color: var(--ink); font-size: 68px; line-height: .95; font-weight: 500; letter-spacing: -0.01em; }
+  .name span { color: var(--signal); }
+  .name b { font-weight: 700; }
+  .tag { margin: var(--space-2) 0 0; color: var(--muted); font-size: 14px; line-height: 1.3; font-weight: 400; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <!--
+    blocks: ink 192x192, signal 144x144, blush 96x96 — sides are multiples of space-4 (48px), corners radius-none
+    arrangement: a staggered stack stepping down from the top-right corner, ink bleeding off the top and right edges
+    pattern: "geometric, modular" row — 48px tiles in line, a loose chain around the stack; the README's motif is a chain of square blocks with exactly one in signal
+    scales: space-4 pitch for every block and tile, radius-none throughout
+  -->
+  <svg viewBox="0 0 960 288" width="960" height="288" aria-hidden="true">
+    <rect class="line" x="672" y="0" width="48" height="48"/>
+    <rect class="line" x="624" y="48" width="48" height="48"/>
+    <rect class="line" x="720" y="48" width="48" height="48"/>
+    <rect class="line" x="576" y="96" width="48" height="48"/>
+    <rect class="line" x="528" y="144" width="48" height="48"/>
+    <rect class="line" x="768" y="192" width="48" height="48"/>
+    <rect class="line" x="864" y="192" width="48" height="48"/>
+    <rect class="line" x="816" y="240" width="48" height="48"/>
+    <rect class="line" x="912" y="240" width="48" height="48"/>
+    <rect class="line" x="624" y="240" width="48" height="48"/>
+    <rect class="ink" x="768" y="0" width="192" height="192"/>
+    <rect class="signal" x="624" y="96" width="144" height="144"/>
+    <rect class="blush" x="528" y="192" width="96" height="96"/>
+  </svg>
+  <div class="words">
+    <p class="name">blockch<span>[<b>AI</b>]</span>n<br>by women</p>
+    <p class="tag">Building and Using Blockchain and AI Safely</p>
+  </div>
+</div>
+</body>
+</html>

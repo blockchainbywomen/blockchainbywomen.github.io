@@ -1,0 +1,147 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "at": "2026-11-10T18:52:38Z",
+  "v": 1
+ },
+ "title": "blockch[AI]n by women",
+ "namespace": "BAIW",
+ "libraries": [],
+ "sections": {},
+ "groups": [
+  "Logos"
+ ],
+ "assetGroups": {
+  "Logos": {
+   "name": "Logos",
+   "tile": "l",
+   "order": [
+    "baiw-wordmark-color.svg",
+    "baiw-wordmark-reverse.svg",
+    "baiw-tagline-color.svg",
+    "baiw-tagline-reverse.svg",
+    "baiw-stacked-color.svg",
+    "baiw-stacked-reverse.svg",
+    "baiw-mark-color.svg",
+    "baiw-mark-reverse.svg",
+    "baiw-icon-ink.svg",
+    "baiw-icon-paper.svg",
+    "baiw-wordmark-black.svg",
+    "baiw-wordmark-white.svg",
+    "baiw-stacked-black.svg",
+    "baiw-stacked-white.svg",
+    "baiw-mark-black.svg",
+    "baiw-mark-white.svg"
+   ],
+   "files": {
+    "baiw-wordmark-color.svg": {
+     "name": "baiw-wordmark-color.svg",
+     "blob": "bef623449dfaf5fa420e66da81662511",
+     "size": 5345,
+     "type": "image/svg+xml"
+    },
+    "baiw-wordmark-reverse.svg": {
+     "name": "baiw-wordmark-reverse.svg",
+     "blob": "865b3b540b4f2c2fb2019efb5eff0438",
+     "size": 5345,
+     "type": "image/svg+xml"
+    },
+    "baiw-tagline-color.svg": {
+     "name": "baiw-tagline-color.svg",
+     "blob": "f4210825db928c009483c41b85a3f14b",
+     "size": 16424,
+     "type": "image/svg+xml"
+    },
+    "baiw-tagline-reverse.svg": {
+     "name": "baiw-tagline-reverse.svg",
+     "blob": "92a8149dd00781db0557adc0264d8be5",
+     "size": 16424,
+     "type": "image/svg+xml"
+    },
+    "baiw-stacked-color.svg": {
+     "name": "baiw-stacked-color.svg",
+     "blob": "3e2845dbfd5b01f4a464155978b209bc",
+     "size": 5315,
+     "type": "image/svg+xml"
+    },
+    "baiw-stacked-reverse.svg": {
+     "name": "baiw-stacked-reverse.svg",
+     "blob": "0c7ca334d1b1b022185654d6dc2b2253",
+     "size": 5315,
+     "type": "image/svg+xml"
+    },
+    "baiw-mark-color.svg": {
+     "name": "baiw-mark-color.svg",
+     "blob": "5af73d3f448e14fa78a38284c8e4020e",
+     "size": 938,
+     "type": "image/svg+xml"
+    },
+    "baiw-mark-reverse.svg": {
+     "name": "baiw-mark-reverse.svg",
+     "blob": "97045f2884964708412cfffc53bb9df5",
+     "size": 938,
+     "type": "image/svg+xml"
+    },
+    "baiw-icon-ink.svg": {
+     "name": "baiw-icon-ink.svg",
+     "blob": "0bd603af6c9f296dacecd40c44bdfc25",
+     "size": 1021,
+     "type": "image/svg+xml"
+    },
+    "baiw-icon-paper.svg": {
+     "name": "baiw-icon-paper.svg",
+     "blob": "5b2ac3dd3539b4bfe30c2ec6fca4d96f",
+     "size": 1021,
+     "type": "image/svg+xml"
+    },
+    "baiw-wordmark-black.svg": {
+     "name": "baiw-wordmark-black.svg",
+     "blob": "509e7da211788a75d0ec544fa5ee5aaa",
+     "size": 5345,
+     "type": "image/svg+xml"
+    },
+    "baiw-wordmark-white.svg": {
+     "name": "baiw-wordmark-white.svg",
+     "blob": "6b8abe687895e73d491ec5adc6a4ea1a",
+     "size": 5345,
+     "type": "image/svg+xml"
+    },
+    "baiw-stacked-black.svg": {
+     "name": "baiw-stacked-black.svg",
+     "blob": "22f301da7d2bc75a55592595cdb58681",
+     "size": 5315,
+     "type": "image/svg+xml"
+    },
+    "baiw-stacked-white.svg": {
+     "name": "baiw-stacked-white.svg",
+     "blob": "97fee9df80391656fdce13a8fe5ec239",
+     "size": 5315,
+     "type": "image/svg+xml"
+    },
+    "baiw-mark-black.svg": {
+     "name": "baiw-mark-black.svg",
+     "blob": "d15eacd1a69d39c0b3529097b5e6c949",
+     "size": 938,
+     "type": "image/svg+xml"
+    },
+    "baiw-mark-white.svg": {
+     "name": "baiw-mark-white.svg",
+     "blob": "d61815d26790e736ba730f5d247c768c",
+     "size": 938,
+     "type": "image/svg+xml"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "sections": []
+ },
+ "lastChange": {
+  "by": "Karen Hsu",
+  "at": "2026-11-10T20:43:51Z",
+  "via": "Claude Code",
+  "note": "Brighter purple #9163ff."
+ }
+}
