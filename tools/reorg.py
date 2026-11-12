@@ -334,7 +334,7 @@ def build_home(recs):
   <article>
     <p class="bw-kicker">01</p>
     <h2><a href="education/">education</a></h2>
-    <p>Watch past panels and videos on new blockchain and AI innovation and how to protect yourself.</p>
+    <p>Watch past panels and videos on new blockchain and AI innovation and safe ways to build and use them.</p>
     {video_card('', latest, recs[latest][0], recs[latest][1], hid=False)}
     <p><a class="bw-more" href="education/">all videos</a></p>
   </article>
