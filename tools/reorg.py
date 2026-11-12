@@ -161,7 +161,7 @@ TOPICS = [  # recordings grouped under the topics the "find videos" quiz uses
 
 # Events: (title, date, [block numbers on the old Events page], video id, extra link)
 UPCOMING = [  # (date, title, place/note)
-    ("December 10, 2026", "Digital Finance Roundtable: Collision of Digital Assets, Fintech, Trad-Fi, Agentic Finance", "Washington, D.C. · details to come"),
+    ("December 10, 2026", "Digital Finance Roundtable: Collision of Digital Assets, Fintech, Trad-Fi, Agentic Finance", "In partnership with Blockchain Foundation · Washington, D.C. · details to come"),
     ("January 14, 2027", "7th Annual Congressional Briefing of Women in Blockchain", "In partnership with Blockchain Foundation · Delegation to Capitol Hill · Washington, D.C. · save the date"),
 ]
 PAST = [
