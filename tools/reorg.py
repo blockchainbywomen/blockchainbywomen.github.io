@@ -161,8 +161,8 @@ TOPICS = [  # recordings grouped under the topics the "find videos" quiz uses
 
 # Events: (title, date, [block numbers on the old Events page], video id, extra link)
 UPCOMING = [  # (date, title, place/note)
-    ("December 10, 2026", "Blockchain by Women in Washington, D.C.", "Washington, D.C. · details to come"),
-    ("January 14, 2027", "Congressional Briefing", "Washington, D.C. · save the date"),
+    ("December 10, 2026", "Digital Finance Roundtable: Collision of Digital Assets, Fintech, Trad-Fi, Agentic Finance", "Washington, D.C. · details to come"),
+    ("January 14, 2027", "7th Annual Congressional Briefing of Women in Blockchain", "Delegation to Capitol Hill · Washington, D.C. · save the date"),
 ]
 PAST = [
     ("Investing with Human Advisors, Online Platforms & AI Agents", "March 26, 2026 · live webcast", [0], "cdhwCGAiMTc", None),
