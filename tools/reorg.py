@@ -334,7 +334,7 @@ def build_home(recs):
   <article>
     <p class="bw-kicker">01</p>
     <h2><a href="education/">education</a></h2>
-    <p>Watch past panels and short videos on how common scams work.</p>
+    <p>Watch past panels and videos on new blockchain and AI innovation and how to protect yourself.</p>
     {video_card('', latest, recs[latest][0], recs[latest][1], hid=False)}
     <p><a class="bw-more" href="education/">all videos</a></p>
   </article>
@@ -348,7 +348,7 @@ def build_home(recs):
   <article>
     <p class="bw-kicker">03</p>
     <h2><a href="programs/">programs</a></h2>
-    <p>Think it's a scam? Lost funds? We help you check, report and protect.</p>
+    <p>Engage with the community on current challenges. We also help you check, report and protect against loss and fraud.</p>
     <ul class="bw-steps">
       <li><a href="programs/#events"><strong>Events</strong> Curated discussions with ecosystem leaders</a></li>
       <li><a href="programs/#detect"><strong>Detect</strong> Check a message, offer or wallet address</a></li>
