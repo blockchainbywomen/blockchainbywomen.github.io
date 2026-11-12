@@ -354,7 +354,7 @@ def build_home(recs):
       <li><a href="programs/#detect"><strong>Detect</strong> Check a message, offer or wallet address</a></li>
       <li><a href="programs/#track"><strong>Track</strong> Monitor ongoing digital fraud</a></li>
       <li><a href="programs/#report"><strong>Report</strong> What to save and where to file</a></li>
-      <li><a href="programs/#prevent"><strong>Prevent loss</strong> RightCount&trade;, loss prevention built safely</a></li>
+      <li><a href="programs/#prevent"><strong>Prevent loss</strong> AI loss prevention, built safely</a></li>
     </ul>
     <p><a class="bw-btn" href="programs/#quiz">assess your scam risk</a></p>
   </article>
@@ -509,10 +509,10 @@ def build_services():
   <p class="bw-kicker">05</p>
   <div>
     <h2>prevent loss</h2>
-    <p>RightCount&trade; uses AI to find the gaps between what happened and what was recorded, and hands the evidence to a person.</p>
-    <h3>RightCount&trade;: loss prevention, built safely</h3>
+    <p>We use AI to find the gaps between what happened and what was recorded, and hand the evidence to a person.</p>
+    <h3>Loss prevention, built safely</h3>
     <p>Most loss is not a dramatic theft. It is a small gap between what happened and what was recorded. Those gaps hide in plain sight because nobody has time to check every record against reality.</p>
-    <p>RightCount&trade; is our applied security work: AI that compares what was seen with what the system of record says, and surfaces the differences for a person to verify.</p>
+    <p>This is our applied security work: AI that compares what was seen with what the system of record says, and surfaces the differences for a person to verify.</p>
     <p>We built it the way we inform: transparent about what it checks and careful with data. No one is identified. Results are verified.</p>
     <p class="bw-actions"><a class="bw-btn" href="mailto:{EMAIL}?subject=Loss%20prevention">email us about your loss prevention need</a></p>
   </div>
