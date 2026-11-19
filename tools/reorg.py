@@ -372,7 +372,7 @@ def build_home(recs):
 </section>
 
 <section class="bw-wrap bw-sponsors">
-  <h2>our sponsors</h2>
+  <h2>past sponsors</h2>
   <div>{sponsors}</div>
 </section>"""
     page("index.html", "", f"{TAGLINE}. Education, events and digital asset fraud programs from bAIW, a 501(c)(3) not-for-profit.", main)
